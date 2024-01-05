@@ -15,16 +15,17 @@ namespace Hust.Iot.DL
         {
         }
 
-        public async Task<List<Tuple<GPSRecord, GPSRecord>>> GetPairs(DateTime time)
+        public async Task<List<Tuple<GPSRecord, GPSRecord>>> GetPairs(string deviceId, DateTime time)
         {
 
             // Lấy tất cả các bản ghi trong một ngày
-            var startDate = time.Date;
+            var startDate = time;
             var endDate = startDate.AddDays(1);
 
             var filter = Builders<GPSRecord>.Filter.And(
                 Builders<GPSRecord>.Filter.Gte("Time", startDate),
-                Builders<GPSRecord>.Filter.Lt("Time", endDate)
+                Builders<GPSRecord>.Filter.Lt("Time", endDate),
+                Builders<GPSRecord>.Filter.Eq("DeviceId", deviceId)
             );
 
             var records = await _collection.Find(filter).SortBy(record => record.Time).ToListAsync();
@@ -51,6 +52,10 @@ namespace Hust.Iot.DL
                     currentActiveRecord = null; // Reset currentActiveRecord
                 }
             }
+            if (records.Any() && records[records.Count-1].Status == Status.Active)
+            {
+                pairedRecords.Add(new Tuple<GPSRecord, GPSRecord>(records[records.Count - 1], null));
+            }
 
             // Bây giờ pairedRecords chứa các cặp bản ghi với bản ghi đầu tiên là Active và bản ghi thứ hai là Parking
 
@@ -59,9 +64,28 @@ namespace Hust.Iot.DL
             return pairedRecords ;
         }
 
-        public async Task<List<GPSRecord>> GetTripAsync(DateTime start, DateTime end)
+        public async Task<GPSRecord> GetRecentLocationAsync(string deviceId)
         {
-            var result = await _collection.FindAsync<GPSRecord>(x=> x.Time >= start && x.Time <= end);
+            DateTime currentTime = DateTime.UtcNow;
+
+            // Xây dựng bộ lọc
+            var filter = Builders<GPSRecord>.Filter.And(
+                Builders<GPSRecord>.Filter.Eq("DeviceId", deviceId),
+                Builders<GPSRecord>.Filter.Lte("Time", currentTime)
+            );
+
+            // Sắp xếp theo trường Time giảm dần để lấy thời điểm gần nhất
+            var sort = Builders<GPSRecord>.Sort.Descending("Time");
+
+            // Thực hiện truy vấn và lấy bản ghi đầu tiên
+            var result = await _collection.Find(filter).Sort(sort).FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<List<GPSRecord>> GetTripAsync(string deviceId, DateTime start, DateTime end)
+        {
+            var result = await _collection.FindAsync<GPSRecord>(x=> x.DeviceId == deviceId && x.Time >= start && x.Time <= end);
             return result.ToList();
         }
     }

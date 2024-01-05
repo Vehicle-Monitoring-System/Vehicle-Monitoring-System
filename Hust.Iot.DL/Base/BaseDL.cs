@@ -33,12 +33,18 @@ namespace Hust.Iot.DL
 
         public async Task<IEnumerable<T>> GetRecordsAsync()
         {
-            throw new NotImplementedException ();
+            var result = await _collection.FindAsync<T>(_ => true);
+            return result.ToList();
         }
 
         public async Task<T> GetRecordByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<T>.Filter.And(
+                Builders<T>.Filter.Eq(Collection+"Id", id)
+            );
+
+            var records = await _collection.Find<T>(filter).ToListAsync();
+            return records[0];
         }
 
         public Task<int> UpdateRecordAsync(string id, T record)

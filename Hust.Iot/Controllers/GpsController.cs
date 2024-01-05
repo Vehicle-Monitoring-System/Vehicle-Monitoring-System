@@ -24,17 +24,17 @@ namespace Hust.Iot.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPairs([FromQuery] DateTime time)
+        public async Task<IActionResult> GetPairs([FromQuery] string deviceId, [FromQuery] DateTime time)
         {
-            var result = await _gpsBL.GetPairsAsync(time);
+            var result = await _gpsBL.GetPairsAsync(deviceId, time);
             return Ok(result);
         }
 
         [HttpGet]
         [Route("trip")]
-        public async Task<IActionResult> GetTripAsync([FromQuery] DateTime start, [FromQuery] DateTime end)
+        public async Task<IActionResult> GetTripAsync([FromQuery] string deviceId,[FromQuery] DateTime start, [FromQuery] DateTime end)
         {
-            var result = await _gpsBL.GetTripAsync(start, end);
+            var result = await _gpsBL.GetTripAsync(deviceId, start, end);
             return Ok(result);
         }
     }

@@ -1,3 +1,4 @@
+using Hust.Iot.BL;
 using Hust.Iot.BL.GpsBL.cs;
 using Hust.Iot.Common;
 using Hust.Iot.DL;
@@ -29,6 +30,17 @@ builder.Services.AddScoped<IClientSessionHandle>(provider =>
 });
 builder.Services.AddScoped<IGpsDL, GpsDL>();
 builder.Services.AddScoped<IGpsBL, GpsBL>();
+builder.Services.AddScoped<IDeviceDL, DeviceDL>();
+builder.Services.AddScoped<IDeviceBL, DeviceBL>();
+builder.Services.AddScoped<IDriverDL, DriverDL>();
+builder.Services.AddScoped<IDriverBL, DriverBL>();
+
+builder.Services.AddSignalR();
+
+builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
+{
+    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -39,10 +51,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
 
+
+app.UseCors("MyCors");
+app.UseRouting();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<GpsBL>("/current-location");
+});
 
 app.Run();

@@ -22,6 +22,11 @@ namespace Hust.Iot.Common
         public int SatelliteNum { get; set; }
         public double Speed { get; set; }
         public double Distance { get; set; }
+        public string? DriverLicense { get; set; }
+        public string? DriverName { get; set; }
+
+        public string? DeviceLicensePlates { get; set; }
+        public string? DeviceName { get; set; }
 
         public Status Status { get; set; }
 

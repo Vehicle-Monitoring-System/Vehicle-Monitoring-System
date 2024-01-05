@@ -11,5 +11,6 @@ namespace Hust.Iot.Common
         Active = 1,
         Stop = 2,
         Parking = 3,
+        GpsDisconnected = 4,
     }
 }
