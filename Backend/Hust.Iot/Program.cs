@@ -34,6 +34,7 @@ builder.Services.AddScoped<IDeviceDL, DeviceDL>();
 builder.Services.AddScoped<IDeviceBL, DeviceBL>();
 builder.Services.AddScoped<IDriverDL, DriverDL>();
 builder.Services.AddScoped<IDriverBL, DriverBL>();
+builder.Services.AddSingleton<IHiveMQ,  HiveMQ>();
 
 builder.Services.AddSignalR();
 
@@ -64,7 +65,6 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<GpsBL>("/current-location");
 });
 
 app.Run();

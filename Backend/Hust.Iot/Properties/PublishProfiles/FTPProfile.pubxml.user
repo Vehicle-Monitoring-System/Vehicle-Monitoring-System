@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAPWeT4WI0QUOKEZG/Rm1xQwAAAAACAAAAAAAQZgAAAAEAACAAAADfePZbYJQNHeNjHdA1LGOynkT93qr+7AqavzwY/7cFbAAAAAAOgAAAAAIAACAAAADhc2ycnhmGktxE5Pb5syBSgAtexWXGtOUa8Y4TZ8f4viAAAAAO6FF8/NMZeoEIx8NRYYtpmenV+4tYlrWbHnlJpkZw8UAAAAAh5ABJVBIhx4JCNaBIC/BCQOywe1FlXdHhKZSbnW/CYBB3cfX9hC6BDX6jcJNhWAFRWGH6TYdP98nhMI6S01q8</EncryptedPassword>
     <_PublishTargetUrl>ftp://gps-iot.somee.com/www.gps-iot.somee.com</_PublishTargetUrl>
-    <History>True|2024-01-05T09:43:26.5263419Z;False|2024-01-05T16:39:34.6837860+07:00;False|2024-01-05T16:31:52.9946965+07:00;True|2023-12-19T21:40:32.4979487+07:00;True|2023-12-19T18:36:49.4922252+07:00;False|2023-12-19T18:32:47.8863081+07:00;False|2023-12-19T18:29:43.5486154+07:00;True|2023-12-19T18:08:37.5378916+07:00;False|2023-12-19T18:03:33.6468482+07:00;True|2023-12-19T16:42:34.3576280+07:00;</History>
+    <History>False|2024-01-06T14:17:11.1315551Z;False|2024-01-06T20:47:22.9943553+07:00;True|2024-01-06T16:25:05.9793702+07:00;True|2024-01-06T16:13:01.3719652+07:00;True|2024-01-06T16:06:12.2136361+07:00;True|2024-01-06T14:55:25.7007517+07:00;False|2024-01-06T14:47:05.1809575+07:00;True|2024-01-06T13:41:13.1883614+07:00;False|2024-01-06T13:37:13.6793269+07:00;True|2024-01-06T13:34:24.3318455+07:00;True|2024-01-06T13:11:42.8075205+07:00;True|2024-01-05T23:21:28.3009300+07:00;False|2024-01-05T21:01:59.5583505+07:00;True|2024-01-05T18:12:14.9666033+07:00;True|2024-01-05T18:02:48.6831664+07:00;False|2024-01-05T17:56:25.1402420+07:00;True|2024-01-05T16:43:26.5263419+07:00;False|2024-01-05T16:39:34.6837860+07:00;False|2024-01-05T16:31:52.9946965+07:00;True|2023-12-19T21:40:32.4979487+07:00;True|2023-12-19T18:36:49.4922252+07:00;False|2023-12-19T18:32:47.8863081+07:00;False|2023-12-19T18:29:43.5486154+07:00;True|2023-12-19T18:08:37.5378916+07:00;False|2023-12-19T18:03:33.6468482+07:00;True|2023-12-19T16:42:34.3576280+07:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -26,41 +26,47 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="DnsClient.dll">
       <publishTime>06/11/2022 03:37:22</publishTime>
     </File>
+    <File Include="HiveMQtt.dll">
+      <publishTime>12/28/2023 19:22:48</publishTime>
+    </File>
     <File Include="Hust.Iot.BL.dll">
-      <publishTime>01/05/2024 16:30:04</publishTime>
+      <publishTime>01/06/2024 20:34:32</publishTime>
     </File>
     <File Include="Hust.Iot.BL.pdb">
-      <publishTime>01/05/2024 16:30:04</publishTime>
+      <publishTime>01/06/2024 20:34:32</publishTime>
     </File>
     <File Include="Hust.Iot.Common.dll">
-      <publishTime>01/05/2024 16:30:03</publishTime>
+      <publishTime>01/05/2024 17:54:38</publishTime>
     </File>
     <File Include="Hust.Iot.Common.pdb">
-      <publishTime>01/05/2024 16:30:03</publishTime>
+      <publishTime>01/05/2024 17:54:38</publishTime>
     </File>
     <File Include="Hust.Iot.deps.json">
-      <publishTime>01/05/2024 16:40:08</publishTime>
+      <publishTime>01/06/2024 20:51:05</publishTime>
     </File>
     <File Include="Hust.Iot.DL.dll">
-      <publishTime>01/05/2024 16:30:04</publishTime>
+      <publishTime>01/06/2024 20:51:03</publishTime>
     </File>
     <File Include="Hust.Iot.DL.pdb">
-      <publishTime>01/05/2024 16:30:04</publishTime>
+      <publishTime>01/06/2024 20:51:03</publishTime>
     </File>
     <File Include="Hust.Iot.dll">
-      <publishTime>01/05/2024 16:40:08</publishTime>
+      <publishTime>01/06/2024 20:51:05</publishTime>
     </File>
     <File Include="Hust.Iot.exe">
-      <publishTime>01/05/2024 16:40:08</publishTime>
+      <publishTime>01/06/2024 20:51:05</publishTime>
     </File>
     <File Include="Hust.Iot.pdb">
-      <publishTime>01/05/2024 16:40:08</publishTime>
+      <publishTime>01/06/2024 20:51:05</publishTime>
     </File>
     <File Include="Hust.Iot.runtimeconfig.json">
-      <publishTime>12/19/2023 18:01:10</publishTime>
+      <publishTime>01/06/2024 16:22:03</publishTime>
     </File>
     <File Include="Microsoft.Extensions.Configuration.Abstractions.dll">
       <publishTime>10/18/2022 23:19:14</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Logging.Abstractions.dll">
+      <publishTime>05/24/2023 21:40:42</publishTime>
     </File>
     <File Include="Microsoft.Extensions.Primitives.dll">
       <publishTime>10/18/2022 23:19:10</publishTime>
@@ -82,6 +88,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Newtonsoft.Json.dll">
       <publishTime>03/25/2018 00:44:14</publishTime>
+    </File>
+    <File Include="NLog.dll">
+      <publishTime>08/05/2023 18:08:38</publishTime>
     </File>
     <File Include="runtimes/linux/native/libmongocrypt.so">
       <publishTime>05/09/2023 20:05:12</publishTime>
@@ -107,11 +116,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
       <publishTime>01/11/2023 13:49:02</publishTime>
     </File>
+    <File Include="System.IO.Pipelines.dll">
+      <publishTime>10/18/2022 23:24:12</publishTime>
+    </File>
     <File Include="System.Net.WebSockets.WebSocketProtocol.dll">
       <publishTime>06/06/2018 20:29:04</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>01/05/2024 16:40:27</publishTime>
+      <publishTime>01/06/2024 20:51:17</publishTime>
     </File>
     <File Include="ZstdSharp.dll">
       <publishTime>08/03/2022 02:04:30</publishTime>

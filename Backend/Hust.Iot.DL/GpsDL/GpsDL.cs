@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,16 @@ namespace Hust.Iot.DL
         {
         }
 
-        public async Task<List<Tuple<GPSRecord, GPSRecord>>> GetPairs(string deviceId, DateTime time)
+        public async Task<object> GetPairs(string deviceId, DateTime time)
         {
 
             // Lấy tất cả các bản ghi trong một ngày
-            var startDate = time;
-            var endDate = startDate.AddDays(1);
+            var x = DateTime.Now;
+            var y = DateTime.UtcNow;
+            var dbTime = time; // Thời gian lấy từ cơ sở dữ liệu
+            var vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"); // Múi giờ Việt Nam
+            var startDate = TimeZoneInfo.ConvertTimeToUtc(dbTime, vietnamTimeZone);
+            var endDate = TimeZoneInfo.ConvertTimeToUtc(dbTime.AddDays(1), vietnamTimeZone);
 
             var filter = Builders<GPSRecord>.Filter.And(
                 Builders<GPSRecord>.Filter.Gte("Time", startDate),
@@ -33,24 +38,26 @@ namespace Hust.Iot.DL
             // Xử lý bản ghi trong C#
             var pairedRecords = new List<Tuple<GPSRecord, GPSRecord>>();
             GPSRecord currentActiveRecord = null;
+            GPSRecord prev = null;
 
             foreach (var record in records)
             {
                 if (record.Status == Status.Active)
                 {
                     // Nếu có một bản ghi Active mới, cập nhật currentActiveRecord
-                    if (currentActiveRecord == null)
+                    if (currentActiveRecord == null && record.Latitude != "0.000000")
                     {
                         currentActiveRecord = record;
                     }
                 }
-                else if (record.Status == Status.Parking && currentActiveRecord != null)
+                else if ( (record.Status == Status.Parking || record.Latitude == "0.000000") && currentActiveRecord != null)
                 {
                     // Nếu có một bản ghi Parking và có một bản ghi Active trước đó,
                     // thì chúng ta có một cặp và thêm vào danh sách
-                    pairedRecords.Add(new Tuple<GPSRecord, GPSRecord>(currentActiveRecord, record));
+                    pairedRecords.Add(new Tuple<GPSRecord, GPSRecord>(currentActiveRecord, prev));
                     currentActiveRecord = null; // Reset currentActiveRecord
                 }
+                prev = record;
             }
             if (records.Any() && records[records.Count-1].Status == Status.Active)
             {
@@ -61,17 +68,29 @@ namespace Hust.Iot.DL
 
 
 
-            return pairedRecords ;
+            return new
+            {
+                Start = startDate,
+                End = endDate,
+                x = x,
+                y = y,
+                Data = pairedRecords,
+            } ;
         }
 
         public async Task<GPSRecord> GetRecentLocationAsync(string deviceId)
         {
-            DateTime currentTime = DateTime.UtcNow;
+            TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+
+            // Lấy thời gian hiện tại theo múi giờ Việt Nam
+            DateTime currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vietnamTimeZone);
+
 
             // Xây dựng bộ lọc
             var filter = Builders<GPSRecord>.Filter.And(
                 Builders<GPSRecord>.Filter.Eq("DeviceId", deviceId),
-                Builders<GPSRecord>.Filter.Lte("Time", currentTime)
+                Builders<GPSRecord>.Filter.Lte("Time", currentTime),
+                Builders<GPSRecord>.Filter.Ne("Latitude", "0.000000")
             );
 
             // Sắp xếp theo trường Time giảm dần để lấy thời điểm gần nhất
@@ -85,7 +104,7 @@ namespace Hust.Iot.DL
 
         public async Task<List<GPSRecord>> GetTripAsync(string deviceId, DateTime start, DateTime end)
         {
-            var result = await _collection.FindAsync<GPSRecord>(x=> x.DeviceId == deviceId && x.Time >= start && x.Time <= end);
+            var result = await _collection.FindAsync<GPSRecord>(x=> x.DeviceId == deviceId && x.Time >= start && x.Time <= end && x.Latitude != "0.000000");
             return result.ToList();
         }
     }

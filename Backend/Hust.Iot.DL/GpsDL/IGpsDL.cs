@@ -9,7 +9,9 @@ namespace Hust.Iot.DL
 {
     public interface IGpsDL : IBaseDL<GPSRecord>
     {
-        public Task<List<Tuple<GPSRecord,GPSRecord>>> GetPairs(string deviceId, DateTime time);
+        //public Task<List<Tuple<GPSRecord,GPSRecord>>> GetPairs(string deviceId, DateTime time);
+        public Task<object> GetPairs(string deviceId, DateTime time);
+
 
         public Task<List<GPSRecord>> GetTripAsync(string deviceId, DateTime start, DateTime end);
 

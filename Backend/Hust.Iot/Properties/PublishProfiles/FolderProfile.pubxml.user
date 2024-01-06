@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\code\iot\Hust.Iot\Backend\Hust.Iot\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2024-01-05T16:05:41.3261800Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
