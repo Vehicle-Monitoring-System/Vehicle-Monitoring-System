@@ -1,6 +1,5 @@
-# Project Name
+# VEHICLE MONITORING SYSTEM
 
-Brief project description.
 
 ## Table of Contents
 
