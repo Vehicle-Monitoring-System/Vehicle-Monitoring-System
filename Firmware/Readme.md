@@ -28,7 +28,7 @@ Provide a brief overview of the project, its purpose, and key features.
 
 ## Getting Started
 
-### 1. Download Keil C
+<h2>1. Download Keil C</h2> 
 
 If you haven't already, download and install Keil C from the official website: [Keil C Download](https://www.keil.com/download/)
 
