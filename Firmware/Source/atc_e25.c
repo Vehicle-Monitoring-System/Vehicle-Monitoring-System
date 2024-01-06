@@ -18,7 +18,7 @@ void atc25_led_init(void)
 	rcu_periph_clock_enable(LED_GREEN_CLK);
 	gpio_init(LED_GREEN_PORT, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, LED_GREEN_PIN | LED_RED_PIN);
 	gpio_bit_set(LED_GREEN_PORT, LED_GREEN_PIN | LED_RED_PIN); // turn off led green & red
-	
+
 	rcu_periph_clock_enable(ACC_CLK);
 	gpio_init(ACC_PORT, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, ACC_PIN);
 }

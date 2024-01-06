@@ -74,7 +74,7 @@ void RFID_CR95HF_Send(uint8_t cmnd, uint8_t len, ...)
 
 bool RFID_CR95HF_Receive()
 {
-    //usart_string_transmit(RFID_UART, "Polling");
+    // usart_string_transmit(RFID_UART, "Polling");
     RFID_CS_LOW();
     delay_1ms(1);
 
@@ -103,7 +103,7 @@ bool RFID_CR95HF_Receive()
     char tmp_string[100];
 
     sprintf(tmp_string, "Response Code %x Data len %x \n", RXBuffer[0], RXBuffer[1]);
-    //sart_string_transmit(RFID_UART, tmp_string);
+    // sart_string_transmit(RFID_UART, tmp_string);
 
     if (RXBuffer[1] >= sizeof(RXBuffer) - 2)
         RXBuffer[1] = 0;
@@ -143,15 +143,15 @@ bool RFID_IDN_Command()
     {
         char string_tmp[20];
         sprintf(string_tmp, "DEVICE ID: ");
-        //usart_string_transmit(RFID_UART, "DEVICE ID: ");
+        // usart_string_transmit(RFID_UART, "DEVICE ID: ");
         for (i = 2; (RXBuffer[i] != '\0') && (i < (RXBuffer[1])); i++)
         {
-            //usart_string_transmit(RFID_UART, RXBuffer[i]);
-            // Serial.print(char(RXBuffer[i]));
+            // usart_string_transmit(RFID_UART, RXBuffer[i]);
+            //  Serial.print(char(RXBuffer[i]));
         }
         i++;
         sprintf(string_tmp, " ROM CRC: %x%x\r\n", RXBuffer[i], RXBuffer[i + 1]);
-        //usart_string_transmit(RFID_UART, string_tmp);
+        // usart_string_transmit(RFID_UART, string_tmp);
         return 1;
     }
     else
@@ -169,17 +169,17 @@ bool Select_ISO_IEC_14443_A_Protocol()
     RFID_CR95HF_Receive();
     if ((RXBuffer[0] == 0) & (RXBuffer[1] == 0))
     {
-        //usart_string_transmit(RFID_UART, "PROTOCOL SET-\r\n");
+        // usart_string_transmit(RFID_UART, "PROTOCOL SET-\r\n");
         return 1;
     }
     else
     {
-        //usart_string_transmit(RFID_UART, "BAD RESPONSE TO SET PROTOCOL\r\n");
+        // usart_string_transmit(RFID_UART, "BAD RESPONSE TO SET PROTOCOL\r\n");
         return 0;
     }
 }
 
-char* RFID_GetTagID(void)
+char *RFID_GetTagID(void)
 {
     char tmp[100] = {0};
     char str[100] = {0};
@@ -190,19 +190,19 @@ char* RFID_GetTagID(void)
     RFID_CR95HF_Receive();
 
     sprintf(str, "REQA[0]: %x\r\n", RXBuffer[0]);
-    //usart_string_transmit(RFID_UART, str);
+    // usart_string_transmit(RFID_UART, str);
     sprintf(str, "REQA[1]: %x\r\n", RXBuffer[1]);
-    //usart_string_transmit(RFID_UART, str);
+    // usart_string_transmit(RFID_UART, str);
 
     memset(str, 0, 100);
-    //usart_string_transmit(RFID_UART, "ATQA: ");
+    // usart_string_transmit(RFID_UART, "ATQA: ");
     for (i = 2; i < (RXBuffer[1] + 2); i++)
     {
         sprintf(str, "%x", RXBuffer[i]);
 
-        //usart_string_transmit(RFID_UART, str);
+        // usart_string_transmit(RFID_UART, str);
     }
-    //usart_string_transmit(RFID_UART, "\r\n");
+    // usart_string_transmit(RFID_UART, "\r\n");
     delay_1ms(1);
     RFID_CR95HF_Send(SendRecv, 3, 0x93, 0x20, 0x08);
     RFID_CR95HF_Receive();
@@ -215,11 +215,11 @@ char* RFID_GetTagID(void)
             strcat(str, tmp);
         }
     }
-    //usart_string_transmit(RFID_UART, "ID: ");
-    //usart_string_transmit(RFID_UART, str);
-    //usart_string_transmit(RFID_UART, "\r\n");
-		
-		return str;
+    // usart_string_transmit(RFID_UART, "ID: ");
+    // usart_string_transmit(RFID_UART, str);
+    // usart_string_transmit(RFID_UART, "\r\n");
+
+    return str;
 }
 
 bool RFID_set_para()
@@ -228,12 +228,12 @@ bool RFID_set_para()
     RFID_CR95HF_Receive();
     if ((RXBuffer[0] == 0) & (RXBuffer[1] == 0))
     {
-        //usart_string_transmit(RFID_UART, "SET PARA OK\r\n");
+        // usart_string_transmit(RFID_UART, "SET PARA OK\r\n");
         return 1;
     }
     else
     {
-        //usart_string_transmit(RFID_UART, "SET PARA FAIL\r\n");
+        // usart_string_transmit(RFID_UART, "SET PARA FAIL\r\n");
         return 0;
     }
 }
@@ -244,12 +244,12 @@ bool RFID_set_gain()
     RFID_CR95HF_Receive();
     if ((RXBuffer[0] == 0) & (RXBuffer[1] == 0))
     {
-        //usart_string_transmit(RFID_UART, "SET GAIN OK\r\n");
+        // usart_string_transmit(RFID_UART, "SET GAIN OK\r\n");
         return 1;
     }
     else
     {
-        //usart_string_transmit(RFID_UART, "SET GAIN FAIL\r\n");
+        // usart_string_transmit(RFID_UART, "SET GAIN FAIL\r\n");
         return 0;
     }
 }

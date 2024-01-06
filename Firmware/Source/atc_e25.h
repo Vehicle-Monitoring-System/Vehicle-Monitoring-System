@@ -16,7 +16,6 @@ typedef enum
     ALL = 3
 } ledlist_typedef_enum;
 
-
 // define user RGB LED on board
 #define LED_GREEN_PORT GPIOC
 #define LED_GREEN_PIN GPIO_PIN_0
@@ -34,9 +33,9 @@ typedef enum
 #define LED_RED_PIN GPIO_PIN_2
 #define LED_RED_CLK RCU_GPIOC
 
-#define ACC_PORT    GPIOB
-#define ACC_PIN     GPIO_PIN_15
-#define ACC_CLK     RCU_GPIOB
+#define ACC_PORT GPIOB
+#define ACC_PIN GPIO_PIN_15
+#define ACC_CLK RCU_GPIOB
 
 // BTN1(PA15)
 #define BTN1_PIN GPIO_PIN_15
@@ -55,7 +54,6 @@ typedef enum
 #define BTN2_EXTI_PORT_SOURCE GPIO_PORT_SOURCE_GPIOC
 #define BTN2_EXTI_PIN_SOURCE GPIO_PIN_SOURCE_12
 #define BTN2_EXTI_IRQn EXTI10_15_IRQn
-
 
 void atc25_led_init(void);
 void atc25_led_on(ledlist_typedef_enum led_num);

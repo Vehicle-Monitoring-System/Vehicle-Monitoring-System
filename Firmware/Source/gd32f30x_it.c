@@ -3,11 +3,8 @@
 #include "systick.h"
 #include "atc_e25.h"
 
-
 uint8_t received_data[1024];
-uint8_t rcv_index=0;
-
-
+uint8_t rcv_index = 0;
 
 /*!
     \brief      this function handles NMI exception
@@ -27,9 +24,10 @@ void NMI_Handler(void)
 */
 void HardFault_Handler(void)
 {
-    /* if Hard Fault exception occurs, go to infinite loop */
-    while (1){
-    }
+  /* if Hard Fault exception occurs, go to infinite loop */
+  while (1)
+  {
+  }
 }
 
 /*!
@@ -40,9 +38,10 @@ void HardFault_Handler(void)
 */
 void MemManage_Handler(void)
 {
-    /* if Memory Manage exception occurs, go to infinite loop */
-    while (1){
-    }
+  /* if Memory Manage exception occurs, go to infinite loop */
+  while (1)
+  {
+  }
 }
 
 /*!
@@ -53,9 +52,10 @@ void MemManage_Handler(void)
 */
 void BusFault_Handler(void)
 {
-    /* if Bus Fault exception occurs, go to infinite loop */
-    while (1){
-    }
+  /* if Bus Fault exception occurs, go to infinite loop */
+  while (1)
+  {
+  }
 }
 
 /*!
@@ -66,9 +66,10 @@ void BusFault_Handler(void)
 */
 void UsageFault_Handler(void)
 {
-    /* if Usage Fault exception occurs, go to infinite loop */
-    while (1){
-    }
+  /* if Usage Fault exception occurs, go to infinite loop */
+  while (1)
+  {
+  }
 }
 
 /*!
@@ -109,109 +110,109 @@ void PendSV_Handler(void)
 */
 void SysTick_Handler(void)
 {
-    delay_decrement();
+  delay_decrement();
 }
 
 void EXTI10_15_IRQHandler(void)
 {
-	if(exti_interrupt_flag_get(EXTI_15)==SET)
-	{
-		while(gpio_input_bit_get(BTN1_GPIO_PORT,BTN1_PIN)==RESET);
-		//code here
-		led_mode++;
-		//if(mode>=4) mode=0;
-		switch (led_mode)
-		{
-    
+  if (exti_interrupt_flag_get(EXTI_15) == SET)
+  {
+    while (gpio_input_bit_get(BTN1_GPIO_PORT, BTN1_PIN) == RESET)
+      ;
+    // code here
+    led_mode++;
+    // if(mode>=4) mode=0;
+    switch (led_mode)
+    {
+
     case 1:
-      atc25_led_flash(RED,500);
+      atc25_led_flash(RED, 500);
       break;
     case 2:
-      atc25_led_flash(GREEN,500);
+      atc25_led_flash(GREEN, 500);
       break;
-		case 3:
-      atc25_led_flash(BLUE,500);
+    case 3:
+      atc25_led_flash(BLUE, 500);
       break;
-		case 4:
-			atc25_led_running(200);
+    case 4:
+      atc25_led_running(200);
       break;
-		case 5:
-			led_mode=1;
-			atc25_led_flash(RED,500);
-			break;
+    case 5:
+      led_mode = 1;
+      atc25_led_flash(RED, 500);
+      break;
     default:
-			atc25_led_off(ALL);
-		}
-		//end here
-		exti_interrupt_flag_clear(EXTI_15);
-	}
-	if(exti_interrupt_flag_get(EXTI_12)==SET)
-	{
-		while(gpio_input_bit_get(BTN2_GPIO_PORT,BTN2_PIN)==RESET);
-		//code here
-		timer_mode++;
-		switch (timer_mode)
-		{
+      atc25_led_off(ALL);
+    }
+    // end here
+    exti_interrupt_flag_clear(EXTI_15);
+  }
+  if (exti_interrupt_flag_get(EXTI_12) == SET)
+  {
+    while (gpio_input_bit_get(BTN2_GPIO_PORT, BTN2_PIN) == RESET)
+      ;
+    // code here
+    timer_mode++;
+    switch (timer_mode)
+    {
     case 1:
-			atc25_led_on(RED);
-			delay_1ms(500);
-			atc25_led_off(RED);
-			alarm=15;
-			//counter=0;
+      atc25_led_on(RED);
+      delay_1ms(500);
+      atc25_led_off(RED);
+      alarm = 15;
+      // counter=0;
       break;
     case 2:
       atc25_led_on(GREEN);
-			delay_1ms(500);
-			atc25_led_off(GREEN);
-			alarm=30;
-			//counter=0;
+      delay_1ms(500);
+      atc25_led_off(GREEN);
+      alarm = 30;
+      // counter=0;
       break;
     case 3:
       atc25_led_on(BLUE);
-			delay_1ms(500);
-			atc25_led_off(BLUE);
-			alarm=60;
-			//counter=0;
+      delay_1ms(500);
+      atc25_led_off(BLUE);
+      alarm = 60;
+      // counter=0;
       break;
-		case 4:
+    case 4:
       atc25_led_on(ALL);
-			delay_1ms(500);
-			atc25_led_off(ALL);
-			alarm=120;
-			//counter=0;
+      delay_1ms(500);
+      atc25_led_off(ALL);
+      alarm = 120;
+      // counter=0;
       break;
-		case 5:
-			timer_mode=1;
-			atc25_led_on(RED);
-			delay_1ms(500);
-			atc25_led_off(RED);
-			alarm=15;
-			break;
+    case 5:
+      timer_mode = 1;
+      atc25_led_on(RED);
+      delay_1ms(500);
+      atc25_led_off(RED);
+      alarm = 15;
+      break;
     default:
-			atc25_led_off(ALL);
-		}
-		//end here
-		exti_interrupt_flag_clear(EXTI_12);
-	}
+      atc25_led_off(ALL);
+    }
+    // end here
+    exti_interrupt_flag_clear(EXTI_12);
+  }
 }
-
-
 
 void USART0_IRQHandler(void)
 {
-	if(usart_interrupt_flag_get(USART0,USART_INT_FLAG_RBNE)==SET)
-	{
-		received_data[rcv_index++]=usart_data_receive(USART0);
-		if(rcv_index==100) rcv_index=0;
-		if(received_data[rcv_index-1]==13) //receive Enter, carrier Return ==\r
-		{
-			received_data[rcv_index]=10;  // enter new line ==\n
-			usart_string_transmit(USART0,received_data);
-			for(uint8_t i=0; i<=rcv_index; i++) received_data[i]=0;
-			rcv_index=0;
-		}
-		usart_interrupt_flag_clear(USART0,USART_INT_FLAG_RBNE);
-	}
+  if (usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE) == SET)
+  {
+    received_data[rcv_index++] = usart_data_receive(USART0);
+    if (rcv_index == 100)
+      rcv_index = 0;
+    if (received_data[rcv_index - 1] == 13) // receive Enter, carrier Return ==\r
+    {
+      received_data[rcv_index] = 10; // enter new line ==\n
+      usart_string_transmit(USART0, received_data);
+      for (uint8_t i = 0; i <= rcv_index; i++)
+        received_data[i] = 0;
+      rcv_index = 0;
+    }
+    usart_interrupt_flag_clear(USART0, USART_INT_FLAG_RBNE);
+  }
 }
-
-

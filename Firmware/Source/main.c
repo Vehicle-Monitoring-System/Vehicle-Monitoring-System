@@ -58,7 +58,7 @@ int main(void)
 
 	rcu_periph_clock_enable(RCU_GPIOD);
 	gpio_init(GPIOD, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
-	
+
 	// Bật Quectel
 	gpio_bit_reset(GPIOD, GPIO_PIN_2);
 	delay_1ms(1000);
@@ -72,12 +72,12 @@ int main(void)
 	rcu_periph_clock_enable(LED_GREEN_CLK);
 	gpio_init(LED_GREEN_PORT, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, LED_GREEN_PIN | LED_RED_PIN);
 	gpio_bit_set(LED_GREEN_PORT, LED_GREEN_PIN | LED_RED_PIN); // turn off led green & red
-	
+
 	// Init RFID
 	RFID_Init();
-	 
+
 	delay_1ms(5000);
-	
+
 	tcp_init();
 	char *uartdebug = "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n";
 	char *gnss = "AT+QGPS=1\r\n";
@@ -89,7 +89,6 @@ int main(void)
 	usart_receive_nmea(USART0, received_data1, 1024);
 	gps_process(&gh, received_data1, 1024);
 
-	
 	while (1)
 	{
 		// char *ATI = "AT+CPIN?\r\n";
@@ -98,23 +97,21 @@ int main(void)
 		gps_init(&gh);
 		delay_1ms(100);
 		usart_receive_nmea(USART0, received_data1, 1024);
-		//usart_string_transmit(USART1, received_data1);
+		// usart_string_transmit(USART1, received_data1);
 		gps_process(&gh, received_data1, 1024);
-		
-		
+
 		if (RFID_IDN_Command()) // reads the CR95HF ID
-    {
+		{
 			if (Select_ISO_IEC_14443_A_Protocol() == 1) // ISO 15693 settings
 			{
 				if (RFID_set_para() == 1)
-					{						
-						char* str = RFID_GetTagID();
-						tcp_assemble(&gh, str);
-					}
+				{
+					char *str = RFID_GetTagID();
+					tcp_assemble(&gh, str);
+				}
 			}
-    }
-		
-		
+		}
+
 		// sprintf(received_data1, "\r\n\r\n\r\n %lf", gh.latitude);
 		// usart_string_transmit(UART3, received_data1);
 	}
