@@ -1,0 +1,57 @@
+.wrapper {
+    width: 280px;
+    min-height: 100%;
+}
+
+h2 {
+    margin: 10px;
+}
+
+.line {
+    background: black;
+    height: 1px;
+    width: calc(100% - 24px);
+}
+
+.device_item {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 34px);
+
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    label {
+        cursor: pointer;
+        font-size: 12px;
+        width: 200px;
+        padding: 8px 8px;
+        border-width: 1px;
+        border-radius: 7px;
+        border: 1px solid #e8e8e8;
+    }
+
+    input[type='checkbox'] + label:hover {
+        background: rgba(93, 135, 255, 0.4);
+        color: rgba(93, 135, 255, 1);
+    }
+
+    input[type='checkbox']:checked + label {
+        background: rgba(93, 135, 255, 1);
+        color: #e8e8e8;
+    }
+
+    input[type='checkbox']:checked + label:hover {
+        background: rgba(93, 135, 255, 0.8);
+    }
+}
+
+.icon {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 25px;
+    border: 1px solid #e8e8e8;
+}
