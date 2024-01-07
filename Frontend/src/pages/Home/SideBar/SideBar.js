@@ -13,6 +13,13 @@ function SideBar({ listDetail, setListDetail, setCenter }) {
     const [selectedDevices, setSelectedDevices] = useState([]);
     const [listDevice, setListDevice] = useState([]);
     const [mqttConnections, setMqttConnections] = useState([]);
+
+    const selectedDevicesRef = useRef();
+    selectedDevicesRef.current = selectedDevices;
+
+    const listDetailRef = useRef();
+    listDetailRef.current = listDetail;
+
     const connectionsRef = useRef();
     connectionsRef.current = mqttConnections;
 
@@ -63,19 +70,19 @@ function SideBar({ listDetail, setListDetail, setCenter }) {
             const data = JSON.parse(jsonString);
             console.log(data);
             if (data.Error) {
-                if (selectedDevices.includes(data.RecentLocation.DeviceId)) {
-                    const list = listDetail.filter((item) => item.deviceId !== data.RecentLocation.DeviceId);
+                if (selectedDevicesRef.current.includes(data.RecentLocation.DeviceId)) {
+                    const list = listDetailRef.current.filter((item) => item.DeviceId !== data.RecentLocation.DeviceId);
                     setListDetail([...list, data.RecentLocation]);
                 } else {
                     const loseGps = { ...data.RecentLocation, Status: 4 };
-                    setListDetail([...listDetail, loseGps]);
+                    setListDetail([...listDetailRef.current, loseGps]);
                 }
             } else {
-                if (selectedDevices.includes(data.DeviceId)) {
-                    const list = listDetail.filter((item) => item.deviceId !== data.DeviceId);
+                if (selectedDevicesRef.current.includes(data.DeviceId)) {
+                    const list = listDetailRef.current.filter((item) => item.DeviceId !== data.DeviceId);
                     setListDetail([...list, data]);
                 } else {
-                    setListDetail([...listDetail, data]);
+                    setListDetail([...listDetailRef.current, data]);
                 }
             }
         });
