@@ -2,8 +2,8 @@ Welcome to the SoICT Traking project!
 
 ## Website
 [IoT Client Website](https://iot-client-heib.onrender.com)
-[HTTP Server](http://gps-iot.somee.com)
-[HTTPS_Server](https://marvelboy-iot.azurewebsites.net)
+[HTTP Server](http://gps-iot.somee.com/swagger/index.html)
+[HTTPS_Server](http://gps-iot.somee.com/swagger/index.html)
 ## Team Members
 
 1. **Mai Xuan Ngoc**
