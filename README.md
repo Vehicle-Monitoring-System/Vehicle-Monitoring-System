@@ -1,1 +1,1 @@
-Website: https://iot-client-heib.onrender.com/history
+Website: https://iot-client-heib.onrender.com
