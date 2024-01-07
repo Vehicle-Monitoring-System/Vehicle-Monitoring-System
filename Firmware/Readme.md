@@ -104,4 +104,5 @@ Ensure that you have the necessary versions of these dependencies installed or i
 
 ## License
 
-Specify the project's license information.
+License
+Buy me a coffee: 5329919626 (BIDV)
